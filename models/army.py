@@ -34,5 +34,34 @@ class Army:
             raise ValueError(f"Not enough gold in army")
         self.gold -= amount
 
-    def lose_strongest_units
-    def attack
+    def lose_strongest_units(self, n: int = 2):
+        self.units.sort(key=lambda u: u.get_strength(), reverse=True)
+        self.units= self.units[n:]
+
+
+    def attack(self, other_army='Army'):
+        own_strength = self.get_total_strength()
+        enemy_strength = other_army.get_total_strength()
+
+        if own_strength > enemy_strength:
+            winner = self
+            loser = other_army
+            result = "win"
+        elif own_strength < enemy_strength:
+            winner = other_army
+            loser = self
+            result = "lose"
+        else:
+            winner = None
+            loser = None
+            result = "draw"
+        
+        if result == "draw":
+            self.lose_strongest_units(1)
+            other_army.lose_strongest_units(1)
+        else:
+            loser.lose_strongest_units(2)
+            winner.add_gold(100)
+            
+        self.battle_history.append(f"Attacked {other_army.civilization} → {result}")
+        other_army.battle_history.append(f"Attacked by {self.civilization} → {'lose' if result == 'win' else 'win' if result == 'lose' else 'draw'}")
