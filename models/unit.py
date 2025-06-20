@@ -1,4 +1,4 @@
-import datetime from datetime
+from datetime import datetime
 
 class Unit:
     BASE_STRENGTH={
@@ -36,7 +36,7 @@ class Unit:
     def get_strength(self) -> int:
         return self.base_strength + self.extra_strength
     
-    def get_years_lived(self):int:
+    def get_years_lived(self) -> int:
         time = datetime.now() - self.creation_date
         return time.days
 

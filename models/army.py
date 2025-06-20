@@ -1,5 +1,5 @@
 from typing import List
-from unit import Unit
+from .unit import Unit
 
 
 class Army:
@@ -18,7 +18,7 @@ class Army:
         self.units: List[Unit] = []
         self.battle_history: List[str] = []
 
-        for unit_type in self.INITIAL_UNITS[civilization].items():
+        for unit_type, quantity in self.INITIAL_UNITS[civilization].items():
             for _ in range(quantity):
                 self.units.append(Unit(unit_type))
     
@@ -62,6 +62,6 @@ class Army:
         else:
             loser.lose_strongest_units(2)
             winner.add_gold(100)
-            
+
         self.battle_history.append(f"Attacked {other_army.civilization} → {result}")
         other_army.battle_history.append(f"Attacked by {self.civilization} → {'lose' if result == 'win' else 'win' if result == 'lose' else 'draw'}")
