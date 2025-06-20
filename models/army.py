@@ -21,8 +21,18 @@ class Army:
         for unit_type in self.INITIAL_UNITS[civilization].items():
             for _ in range(quantity):
                 self.units.append(Unit(unit_type))
-    def get_total_strength
-    def add_gold
-    def spend_gold
+    
+    def get_total_strength(self) -> int:
+        return sum(unit.get_strength() for unit in self.units)
+
+    
+    def add_gold(self, amount:int):
+        self.gold += amount
+
+    def spend_gold(self, amount:int):
+        if self.gold < amount:
+            raise ValueError(f"Not enough gold in army")
+        self.gold -= amount
+
     def lose_strongest_units
     def attack
