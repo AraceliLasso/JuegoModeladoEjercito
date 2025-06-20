@@ -46,3 +46,19 @@ class Unit:
             raise ValueError("Not enough gold to train unit")
         self.extra_strength += self.TRAINING_BENEFITS[self.unit_type]
         return army_gold - cost
+    
+    def can_transform(self) -> bool:
+        return self.TRANSFORMATION_RELATIONS[self.unit_type] is not None
+    
+    def transform(self, army_gold:int):
+        
+        if not self.can_transform():
+            raise ValueError(f"{self.unit_type} cannot be transformed further")
+        new_type = self.TRANSFORMATION_RELATIONS[self.unit_type]
+        cost = self.TRANSFORMATION_COSTS[(self.unit_type, new_type)]
+        if army_gold < cost:
+            raise ValueError("Not enough gold to transform unit")
+        self.unit_type = new_type
+        self.base_strength = self.BASE_STRENGTH[new_type]
+        self.extra_strength = 0
+        return army_gold - cost
