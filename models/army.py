@@ -10,9 +10,11 @@ class Army:
         "english": {"pikeman":10, "archer": 10, "knight":10},
         "bizantine": {"pikeman":5, "archer": 8, "knight":15},
     }
-    def __init__(self, civilization:str):
+    def __init__(self, civilization:str, army_name:str):
         if civilization not in self.INITIAL_UNITS:
             raise ValueError(f"Invalid civilization type: {civilization}")
+
+        self.army_name = army_name 
         self.civilization = civilization
         self.gold = self.INITIAL_GOLD
         self.units: List[Unit] = []
@@ -39,7 +41,7 @@ class Army:
         self.units= self.units[n:]
 
 
-    def attack(self, other_army='Army'):
+    def attack(self, other_army: 'Army'):
         own_strength = self.get_total_strength()
         enemy_strength = other_army.get_total_strength()
 
@@ -55,7 +57,7 @@ class Army:
             winner = None
             loser = None
             result = "draw"
-        
+
         if result == "draw":
             self.lose_strongest_units(1)
             other_army.lose_strongest_units(1)
@@ -63,5 +65,11 @@ class Army:
             loser.lose_strongest_units(2)
             winner.add_gold(100)
 
-        self.battle_history.append(f"Attacked {other_army.civilization} → {result}")
-        other_army.battle_history.append(f"Attacked by {self.civilization} → {'lose' if result == 'win' else 'win' if result == 'lose' else 'draw'}")
+        self.battle_history.append(f"Attacked {other_army.army_name} → {result}")
+        other_army.battle_history.append(
+            f"Attacked by {self.army_name} → {'lose' if result == 'win' else 'win' if result == 'lose' else 'draw'}"
+            )
+
+        with open("Historial_Batallas.txt", "a", encoding="utf-8") as file:
+            file.write(f"{self.army_name},{self.civilization} civilization, attacked {other_army.army_name},{other_army.civilization} civilization → result {self.army_name} {result}\n")
+
