@@ -23,7 +23,17 @@ class Army:
         for unit_type, quantity in self.INITIAL_UNITS[civilization].items():
             for _ in range(quantity):
                 self.units.append(Unit(unit_type))
-    
+
+    def show_unit_summary(self):
+        summary = {"pikeman": 0, "archer": 0, "knight": 0}
+        for unit in self.units:
+            summary[unit.unit_type] += 1
+
+        print(f"\n Unit summary for {self.army_name} ({self.civilization} civilization):")
+        for unit_type in ["pikeman", "archer", "knight"]:
+            print(f" - {unit_type.capitalize()}s: {summary[unit_type]}")
+
+
     def get_total_strength(self) -> int:
         return sum(unit.get_strength() for unit in self.units)
 
@@ -68,10 +78,7 @@ class Army:
         self.battle_history.append(f"Attacked {other_army.army_name} → {result}")
         other_army.battle_history.append(
             f"Attacked by {self.army_name} → {'lose' if result == 'win' else 'win' if result == 'lose' else 'draw'}"
-            )
-
-        with open("Historial_Batallas.txt", "a", encoding="utf-8") as file:
-            file.write(f"{self.army_name},{self.civilization} civilization, attacked {other_army.army_name},{other_army.civilization} civilization → result {self.army_name} {result}\n")
+        )
 
     def train_unit(self, unit: Unit):
         cost = unit.TRAINING_COSTS[unit.unit_type]

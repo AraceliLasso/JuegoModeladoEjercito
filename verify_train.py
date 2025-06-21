@@ -30,5 +30,5 @@ if unit1.can_transform():
 else:
     print(f"[{unit1.unit_type.capitalize()}] Cannot be transformed.")
 
-print(f"[{unit1.unit_type.capitalize()}] Days lived: {unit1.get_years_lived()}")
+print(f"[{unit1.unit_type.capitalize()}] Years lived: {unit1.get_years_lived()}")
 

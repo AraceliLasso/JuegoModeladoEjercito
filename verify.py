@@ -5,6 +5,10 @@ if __name__ == "__main__":
     army1 = Army("bizantine", "Blasters")
     army2 = Army("english", "TeaTime")
 
+    army1.show_unit_summary()
+    army2.show_unit_summary()
+
+
     print("\n🔍 Number of units before battle:")
     print("the", army1.army_name, "a/an", army1.civilization, "army has", len(army1.units), "units") 
     print("the", army2.army_name, "a/an", army2.civilization, "army has", len(army2.units), "units") 
