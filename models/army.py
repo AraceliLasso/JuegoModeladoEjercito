@@ -73,3 +73,16 @@ class Army:
         with open("Historial_Batallas.txt", "a", encoding="utf-8") as file:
             file.write(f"{self.army_name},{self.civilization} civilization, attacked {other_army.army_name},{other_army.civilization} civilization → result {self.army_name} {result}\n")
 
+    def train_unit(self, unit: Unit):
+        cost = unit.TRAINING_COSTS[unit.unit_type]
+        self.spend_gold(cost)
+        unit.train()
+
+    def transform_unit(self, unit: Unit):
+        if not unit.can_transform():
+            raise ValueError(f"Unit {unit.unit_type} cannot transform")
+        new_type = unit.TRANSFORMATION_RELATIONS[unit.unit_type]
+        cost = unit.TRANSFORMATION_COSTS[(unit.unit_type, new_type)]
+        self.spend_gold(cost)
+        unit.transform()
+

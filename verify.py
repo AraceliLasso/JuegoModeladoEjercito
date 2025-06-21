@@ -6,14 +6,12 @@ if __name__ == "__main__":
     army2 = Army("english", "TeaTime")
 
     print("\n🔍 Number of units before battle:")
-    print("the", army1.army_name, "a/an", army1.civilization, "army has", len(army1.units), "units")  # debería ser 29
-    print("the", army2.army_name, "a/an", army2.civilization, "army has", len(army2.units), "units")  # debería ser 30
+    print("the", army1.army_name, "a/an", army1.civilization, "army has", len(army1.units), "units") 
+    print("the", army2.army_name, "a/an", army2.civilization, "army has", len(army2.units), "units") 
 
     print(army1.army_name, "initial strength:", army1.get_total_strength())
     print("TeaTime initial strength:", army2.get_total_strength())
-    # Deberia resultar en:
-    # Fuerza inicial de chinese: 300
-    # Fuerza inicial de english: 350
+
 
     #! Simula una batalla
     army1.attack(army2)
